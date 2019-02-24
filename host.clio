@@ -1,5 +1,4 @@
 import rethinkdb from rethinkdb-2.3.3/rethinkdb
-import uuid4 from uuid4-3.3.2/uuid4
 
 rethinkdb -> connect #localhost 28015 => connection
 rethinkdb -> db #clio => database -> table #todos => todos
