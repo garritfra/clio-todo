@@ -1,0 +1,86 @@
+import get_todos update_todo add_todo todo_emitter remove_todo from ws://192.168.8.128:3000
+
+@eager
+fn do_add_todo event:
+  event -> preventDefault
+  'Untitled' 'Enter description' -> add_todo
+
+'#add-todo' -> $ -> click do_add_todo
+
+@eager
+fn remove_editing_class event:
+  event.target -> $ -> closest '.todo' -> removeClass 'editing'
+
+@eager
+fn do_update_todo event:
+  event.target -> $ -> $parent => $todo -> addClass 'editing'
+  $todo -> $find '.title' -> text => title
+  $todo -> $find '.body' -> html => body
+  $todo -> $find '.status' -> prop #checked => checked
+  $todo -> attr 'data-todo-id' => id
+  id title body checked -> update_todo
+
+@eager
+fn do_remove_todo event:
+  event -> preventDefault
+  event.target -> $ -> $parent -> attr 'data-todo-id' -> remove_todo
+
+@eager
+fn make_todo todo:
+  '<h2>'  -> $ -> text todo.title
+               -> addClass 'title' => $title
+
+  '<div>' -> $ -> html todo.body
+               -> addClass 'body'  => $body
+
+  '<input type="checkbox">' -> $
+               -> addClass 'status'
+               -> attr #checked todo.checked
+               => $checkbox
+               -> on #change do_update_todo
+
+  '<a href="#">' -> $
+               -> text 'x'
+               -> addClass 'remove'
+               -> click do_remove_todo
+               => $remove
+
+  [$title $body]
+               -> * attr 'contenteditable' true
+               -> * on #input do_update_todo
+
+  '<div>' -> $ -> $append $checkbox
+               -> $append $title
+               -> $append $body
+               -> $append $remove
+               -> addClass 'todo'
+               -> attr 'data-todo-id' todo.id
+               -> focusout remove_editing_class
+
+@eager
+fn render_page todos:
+  todos
+    ->* make_todo
+    ->* appendTo '#todos'
+
+@eager
+fn update_page todo:
+  if not todo.old_val:
+    todo.new_val -> make_todo -> appendTo '#todos'
+  elif not todo.new_val:
+    '[data-todo-id=' todo.old_val.id ']' -> cat -> $ -> remove
+  else:
+    '[data-todo-id=' todo.new_val.id ']'
+      -> cat -> $
+      => $container
+      -> hasClass 'editing'
+      -> if not:
+          $container -> $find '.title'
+                     -> text todo.new_val.title
+          $container -> $find '.body'
+                     -> html todo.new_val.body
+          $container -> $find '.status'
+                     -> prop #checked todo.new_val.checked
+
+todo_emitter:#change -> update_page
+'now' -> get_todos -> render_page

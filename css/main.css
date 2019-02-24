@@ -1,0 +1,178 @@
+body {
+  font-family: 'Lora', Sans-serif;
+  max-width: 640px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 1em;
+  padding-bottom: 4em;
+}
+
+#header h1 {
+  padding-bottom: .5em;
+  text-align: center;
+}
+
+#todos {
+  display: flex;
+  flex-direction: column;
+}
+
+#add-todo {
+  text-decoration: none;
+  font-size: 2em;
+  color: #000;
+  display: block;
+  width: 60px;
+  height: 60px;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 60px;
+  line-height: 60px;
+  text-align: center;
+  background: #fff;
+  margin: -30px auto;
+  position: relative;
+  transition: .3s ease-in all;
+}
+
+#add-todo:hover {
+  box-shadow: 4px 4px 8px rgba(0,0,0,.6);
+}
+
+#todos {
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0px 0px 8px rgba(0,0,0,.5)
+}
+
+.todo {
+  padding: 1em;
+  position: relative;
+  padding-right: 1em;
+  border: 1px solid rgba(0,0,0,.1);
+  border-bottom: none;
+}
+
+.todo:last-of-type {
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  padding-bottom: 1.5em;
+}
+
+.todo a {
+  text-decoration: none;
+  color: #000;
+}
+
+.todo .title {
+  font-size: 1em;
+  display: inline-block;
+}
+
+.todo .status {
+  display: inline-block;
+  margin-right: 2em;
+  width: 0;
+  height: 1em;
+}
+
+.todo .status:after {
+  line-height: 1.5em;
+  content: '';
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  border: 1px solid rgb(0,0,0,.1);
+  border-radius: 1.5em;
+  background: #fff;
+  margin-left: -4px;
+  margin-top: -4px;
+  cursor: pointer;
+  transition: .3s ease-in all;
+}
+
+.todo .status:hover:after {
+  box-shadow: 4px 4px 4px rgba(0,0,0,.3);
+}
+
+.todo .status:checked:after {
+  background-image: url(../images/mark.png);
+  background-position: center;
+  background-size: .9em .9em;
+  background-repeat: no-repeat;
+}
+
+.todo .status:checked + .title {
+  text-decoration: line-through;
+}
+
+.todo .remove {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 20px;
+  height: 20px;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 20px;
+  text-align: center;
+  line-height: 19px;
+  transition: .3s ease-in all;
+  font-size: 1em;
+  font-family: monospace;
+}
+
+.todo .remove:hover {
+  box-shadow: 4px 4px 4px rgba(0,0,0,.3);
+}
+
+.todo .body {
+  margin-left: 2em;
+  margin-right: 2.5em;
+  margin-bottom: 1em;
+}
+
+/* Some themes */
+
+/* A Dream in Color */
+
+body.a-dream { background: rgb(27,103,107) }
+.a-dream .todo { background: rgb(234,253,230) }
+.a-dream #add-todo { background: rgb(81,149,72); color: rgb(190,242,2)}
+
+/* Dream Magnet */
+
+body.dream-magnet { background: rgb(52,56,56) }
+.dream-magnet .todo { background: rgb(0,180,204); color: rgb(52,56,56)}
+.dream-magnet #add-todo { background: rgb(0,223,252); color: rgb(0,95,107)}
+
+/* French Kiss */
+
+body.french-kiss { background: rgb(21,17,1) }
+.french-kiss .todo { background: rgb(237,246,238); color: rgb(65,46,40)}
+.french-kiss #add-todo { background: rgb(209,192,137); color: rgb(65,46,40)}
+.french-kiss .remove { background: rgb(179,32,77); color: rgb(237,246,238)}
+
+/* You Are Beautiful */
+
+body.you-are-beautiful { background: rgb(53,19,48) }
+.you-are-beautiful .todo { background: rgb(66,66,84); color: rgb(232,202,164)}
+.you-are-beautiful #add-todo { background: rgb(100,144,138); color: rgb(232,202,164)}
+.you-are-beautiful .remove { background: rgb(204,42,65); color: rgb(232,202,164)}
+.you-are-beautiful .todo .body { color: rgb(100,144,138)}
+
+/* Inside This Moment */
+
+body.inside-moment { background: rgb(52,17,57)}
+.inside-moment .todo { background: rgb(60,50,81); color: rgb(255,237,144)}
+.inside-moment #add-todo { background: rgb(53,150,104); color: rgb(255,237,144)}
+.inside-moment .remove { background: rgb(204,42,65); color: rgb(232,202,164)}
+.inside-moment .todo .body { color: rgb(53,150,104)}
+.inside-moment #header { color: rgb(255,237,144)}
+
+/* Dracula */
+
+body.dracula { background: rgb(40,42,54)}
+.dracula .todo { background: rgb(68,71,90); color: rgb(189,147,249)}
+.dracula #add-todo { background: rgb(98,114,164); color: rgb(255,121,198)}
+.dracula .remove { background: rgb(255,85,85); color: rgb(248,248,242)}
+.dracula .todo .body { color: rgb(248,248,242)}
+.dracula #header { color: rgb(241,250,140)}
+.dracula .todo .status:after { background-color: rgb(98,114,164) }

@@ -1,0 +1,47 @@
+import rethinkdb from rethinkdb-2.3.3/rethinkdb
+import uuid4 from uuid4-3.3.2/uuid4
+
+rethinkdb -> connect #localhost 28015 => connection
+rethinkdb -> db #clio => database -> table #todos => todos
+
+@eager
+fn update_todo id title body checked:
+  todos
+     -> get id
+     -> update {#title title #body body #checked checked}
+     -> run connection
+
+@eager
+fn add_todo title body:
+  todos
+     -> insert {#title title #body body #checked false}
+     -> run connection
+
+@eager
+fn remove_todo id:
+  todos
+     -> get id
+     -> delete
+     -> run connection
+
+@eager
+fn get_todos timestamp:
+  todos
+     -> run connection
+     -> toArray
+
+#todos -> emitter => todo_emitter
+
+@eager
+fn emit_data data:
+  todo_emitter -> emit #change data
+
+todos
+   -> changes
+   -> run connection
+   -> on 'data' emit_data
+
+{ -- host utility configuration:
+  #port 3000
+  #exports [#get_todos #update_todo #add_todo #todo_emitter #remove_todo]
+} => host
