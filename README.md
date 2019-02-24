@@ -7,9 +7,11 @@ This is a simple reactive todo app made with Clio. To run this example you'll ne
 ## how to run
 
 First, you need to host the host file
-
-  clio host host.clio
+```
+clio host host.clio
+```
   
 Now, you will need a simple http server (live-server or python -m http.server)
-
-  live-server
+```
+live-server
+```
