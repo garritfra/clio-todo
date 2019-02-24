@@ -1,4 +1,4 @@
-import get_todos update_todo add_todo todo_emitter remove_todo from ws://192.168.8.128:3000
+import get_todos update_todo add_todo todo_emitter remove_todo from ws://localhost:3000
 
 @eager
 fn do_add_todo event:
