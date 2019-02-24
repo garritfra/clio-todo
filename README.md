@@ -4,6 +4,8 @@ This is a simple Clio demonstration showing how to use Node.js libraries with Cl
 
 This is a simple reactive todo app made with Clio. To run this example you'll need Rethinkdb, Node.js and Clio.
 
+![](demo.gif)
+
 ## how to run
 
 First, you need to host the host file
