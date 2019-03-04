@@ -6,10 +6,7 @@ fn do_add_todo event:
   'Untitled' 'Enter description' -> add_todo
 
 '#add-todo' -> $ -> click do_add_todo
-
-@eager
-fn remove_editing_class event:
-  event.target -> $ -> closest '.todo' -> removeClass 'editing'
+'#todo-template' -> $ -> html -> Handlebars.compile => template
 
 @eager
 fn do_update_todo event:
@@ -26,47 +23,20 @@ fn do_remove_todo event:
   event.target -> $ -> $parent -> attr 'data-todo-id' -> remove_todo
 
 @eager
-fn make_todo todo:
-  '<h2>'  -> $ -> text todo.title
-               -> addClass 'title' => $title
+fn remove_editing_class event:
+  event.target -> $ -> removeClass 'editing'
 
-  '<div>' -> $ -> html todo.body
-               -> addClass 'body'  => $body
-
-  '<input type="checkbox">' -> $
-               -> addClass 'status'
-               -> attr #checked todo.checked
-               => $checkbox
-               -> on #change do_update_todo
-
-  '<a href="#">' -> $
-               -> text 'x'
-               -> addClass 'remove'
-               -> click do_remove_todo
-               => $remove
-
-  [$title $body]
-               -> * attr 'contenteditable' true
-               -> * on #input do_update_todo
-
-  '<div>' -> $ -> $append $checkbox
-               -> $append $title
-               -> $append $body
-               -> $append $remove
-               -> addClass 'todo'
-               -> attr 'data-todo-id' todo.id
-               -> focusout remove_editing_class
-
-@eager
-fn render_page todos:
-  todos
-    ->* make_todo
-    ->* appendTo '#todos'
+'body' -> $ -> (@eager) fn $body:
+  $body -> on 'click' '.remove' do_remove_todo
+  $body -> on 'input' '.body' do_update_todo
+  $body -> on 'input' '.title' do_update_todo
+  $body -> on 'change' '.status' do_update_todo
+  $body -> on 'focusout' '.todo' remove_editing_class
 
 @eager
 fn update_page todo:
   if not todo.old_val:
-    todo.new_val -> make_todo -> appendTo '#todos'
+    todo.new_val -> template -> $ -> appendTo '#todos'
   elif not todo.new_val:
     '[data-todo-id=' todo.old_val.id ']' -> cat -> $ -> remove
   else:
@@ -75,12 +45,8 @@ fn update_page todo:
       => $container
       -> hasClass 'editing'
       -> if not:
-          $container -> $find '.title'
-                     -> text todo.new_val.title
-          $container -> $find '.body'
-                     -> html todo.new_val.body
-          $container -> $find '.status'
-                     -> prop #checked todo.new_val.checked
+          todo.new_val -> template -> $ => $new
+          $container -> replaceWith $new
 
 todo_emitter:#change -> update_page
-'now' -> get_todos -> render_page
+'now' -> get_todos ->* template ->* $ ->* appendTo '#todos'

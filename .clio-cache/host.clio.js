@@ -1,14 +1,13 @@
 module.exports = async function(scope, builtins, file) {
     var ws_connections = [];
     await builtins.clio_require('rethinkdb-2.3.3/rethinkdb', ['rethinkdb'], __dirname, scope);
-    await builtins.clio_require('uuid4-3.3.2/uuid4', ['uuid4'], __dirname, scope);
     await (async function(__data) {
         var fn = async function(__data) {
             return (await builtins.update_vars(scope, ['connection'], await builtins.funcall([...__data], ['localhost', builtins.Decimal('28015')], await builtins.funcall(['connect'], [scope], builtins.get_symbol, file, {
-                index: 98,
+                index: 62,
                 fn: '<get-symbol>'
             }), file, {
-                index: 98,
+                index: 62,
                 fn: 'connect'
             })))
         }
@@ -20,22 +19,22 @@ module.exports = async function(scope, builtins, file) {
             return await fn(__data)
         }
     })([await builtins.funcall(['rethinkdb'], [scope], builtins.get_symbol, file, {
-        index: 85,
+        index: 49,
         fn: '<get-symbol>'
     })]);
     await (async function(__data) {
         var fn = async function(__data) {
             return (await builtins.update_vars(scope, ['todos'], await builtins.funcall([(await builtins.update_vars(scope, ['database'], await builtins.funcall([...__data], ['clio'], await builtins.funcall(['db'], [scope], builtins.get_symbol, file, {
-                index: 150,
+                index: 114,
                 fn: '<get-symbol>'
             }), file, {
-                index: 150,
+                index: 114,
                 fn: 'db'
             })))], ['todos'], await builtins.funcall(['table'], [scope], builtins.get_symbol, file, {
-                index: 174,
+                index: 138,
                 fn: '<get-symbol>'
             }), file, {
-                index: 174,
+                index: 138,
                 fn: 'table'
             })))
         }
@@ -47,9 +46,57 @@ module.exports = async function(scope, builtins, file) {
             return await fn(__data)
         }
     })([await builtins.funcall(['rethinkdb'], [scope], builtins.get_symbol, file, {
-        index: 137,
+        index: 101,
         fn: '<get-symbol>'
     })]);
+    builtins.define_function((function(scope) {
+        var func = builtins.lazy(async function(timestamp) {
+            var scope = Object.assign({}, func.frozenscope);
+            var args_obj = {};
+            var _arguments = arguments;
+            ['timestamp'].forEach(function(arg, index) {
+                scope[arg] = _arguments[index]
+            });
+            return await (async function(__data) {
+                var fn = async function(__data) {
+                    return await builtins.funcall([await builtins.funcall([...__data], [await builtins.funcall(['connection'], [scope], builtins.get_symbol, file, {
+                        index: 212,
+                        fn: '<get-symbol>'
+                    })], await builtins.funcall(['run'], [scope], builtins.get_symbol, file, {
+                        index: 208,
+                        fn: '<get-symbol>'
+                    }), file, {
+                        index: 208,
+                        fn: 'run'
+                    })], [], await builtins.funcall(['toArray'], [scope], builtins.get_symbol, file, {
+                        index: 231,
+                        fn: '<get-symbol>'
+                    }), file, {
+                        index: 231,
+                        fn: 'toArray'
+                    })
+                }
+                if (__data[0].is_reactive) {
+                    return __data[0].set_listener(function(n) {
+                        return fn([n, ...__data.slice(1)])
+                    })
+                } else {
+                    return await fn(__data)
+                }
+            })([await builtins.funcall(['todos'], [scope], builtins.get_symbol, file, {
+                index: 194,
+                fn: '<get-symbol>'
+            })])
+        }, true);
+        func.frozenscope = Object.assign({}, scope);
+        func.frozenscope['get_todos'] = func;
+        func.frozenscope['recall'] = func;
+        return func;
+    })(scope), 'get_todos', scope);
+    builtins.decorate_function(await builtins.funcall(['eager'], [scope], builtins.get_symbol, file, {
+        index: 162,
+        fn: '<get-symbol>'
+    }), [], 'get_todos', 'default', scope);
     builtins.define_function((function(scope) {
         var func = builtins.lazy(async function(id, title, body, checked) {
             var scope = Object.assign({}, func.frozenscope);
@@ -61,41 +108,41 @@ module.exports = async function(scope, builtins, file) {
             return await (async function(__data) {
                 var fn = async function(__data) {
                     return await builtins.funcall([await builtins.funcall([await builtins.funcall([...__data], [await builtins.funcall(['id'], [scope], builtins.get_symbol, file, {
-                        index: 262,
+                        index: 305,
                         fn: '<get-symbol>'
                     })], await builtins.funcall(['get'], [scope], builtins.get_symbol, file, {
-                        index: 258,
+                        index: 301,
                         fn: '<get-symbol>'
                     }), file, {
-                        index: 258,
+                        index: 301,
                         fn: 'get'
                     })], [{
                         'title': await builtins.funcall(['title'], [scope], builtins.get_symbol, file, {
-                            index: 288,
+                            index: 331,
                             fn: '<get-symbol>'
                         }),
                         'body': await builtins.funcall(['body'], [scope], builtins.get_symbol, file, {
-                            index: 300,
+                            index: 343,
                             fn: '<get-symbol>'
                         }),
                         'checked': await builtins.funcall(['checked'], [scope], builtins.get_symbol, file, {
-                            index: 314,
+                            index: 357,
                             fn: '<get-symbol>'
                         })
                     }], await builtins.funcall(['update'], [scope], builtins.get_symbol, file, {
-                        index: 273,
+                        index: 316,
                         fn: '<get-symbol>'
                     }), file, {
-                        index: 273,
+                        index: 316,
                         fn: 'update'
                     })], [await builtins.funcall(['connection'], [scope], builtins.get_symbol, file, {
-                        index: 335,
+                        index: 378,
                         fn: '<get-symbol>'
                     })], await builtins.funcall(['run'], [scope], builtins.get_symbol, file, {
-                        index: 331,
+                        index: 374,
                         fn: '<get-symbol>'
                     }), file, {
-                        index: 331,
+                        index: 374,
                         fn: 'run'
                     })
                 }
@@ -107,7 +154,7 @@ module.exports = async function(scope, builtins, file) {
                     return await fn(__data)
                 }
             })([await builtins.funcall(['todos'], [scope], builtins.get_symbol, file, {
-                index: 244,
+                index: 287,
                 fn: '<get-symbol>'
             })])
         }, true);
@@ -117,7 +164,7 @@ module.exports = async function(scope, builtins, file) {
         return func;
     })(scope), 'update_todo', scope);
     builtins.decorate_function(await builtins.funcall(['eager'], [scope], builtins.get_symbol, file, {
-        index: 198,
+        index: 241,
         fn: '<get-symbol>'
     }), [], 'update_todo', 'default', scope);
     builtins.define_function((function(scope) {
@@ -132,28 +179,28 @@ module.exports = async function(scope, builtins, file) {
                 var fn = async function(__data) {
                     return await builtins.funcall([await builtins.funcall([...__data], [{
                         'title': await builtins.funcall(['title'], [scope], builtins.get_symbol, file, {
-                            index: 409,
+                            index: 452,
                             fn: '<get-symbol>'
                         }),
                         'body': await builtins.funcall(['body'], [scope], builtins.get_symbol, file, {
-                            index: 421,
+                            index: 464,
                             fn: '<get-symbol>'
                         }),
                         'checked': false
                     }], await builtins.funcall(['insert'], [scope], builtins.get_symbol, file, {
-                        index: 394,
+                        index: 437,
                         fn: '<get-symbol>'
                     }), file, {
-                        index: 394,
+                        index: 437,
                         fn: 'insert'
                     })], [await builtins.funcall(['connection'], [scope], builtins.get_symbol, file, {
-                        index: 454,
+                        index: 497,
                         fn: '<get-symbol>'
                     })], await builtins.funcall(['run'], [scope], builtins.get_symbol, file, {
-                        index: 450,
+                        index: 493,
                         fn: '<get-symbol>'
                     }), file, {
-                        index: 450,
+                        index: 493,
                         fn: 'run'
                     })
                 }
@@ -165,7 +212,7 @@ module.exports = async function(scope, builtins, file) {
                     return await fn(__data)
                 }
             })([await builtins.funcall(['todos'], [scope], builtins.get_symbol, file, {
-                index: 380,
+                index: 423,
                 fn: '<get-symbol>'
             })])
         }, true);
@@ -175,7 +222,7 @@ module.exports = async function(scope, builtins, file) {
         return func;
     })(scope), 'add_todo', scope);
     builtins.decorate_function(await builtins.funcall(['eager'], [scope], builtins.get_symbol, file, {
-        index: 348,
+        index: 391,
         fn: '<get-symbol>'
     }), [], 'add_todo', 'default', scope);
     builtins.define_function((function(scope) {
@@ -189,28 +236,28 @@ module.exports = async function(scope, builtins, file) {
             return await (async function(__data) {
                 var fn = async function(__data) {
                     return await builtins.funcall([await builtins.funcall([await builtins.funcall([...__data], [await builtins.funcall(['id'], [scope], builtins.get_symbol, file, {
-                        index: 512,
+                        index: 555,
                         fn: '<get-symbol>'
                     })], await builtins.funcall(['get'], [scope], builtins.get_symbol, file, {
-                        index: 508,
+                        index: 551,
                         fn: '<get-symbol>'
                     }), file, {
-                        index: 508,
+                        index: 551,
                         fn: 'get'
                     })], [], await builtins.funcall(['delete'], [scope], builtins.get_symbol, file, {
-                        index: 523,
+                        index: 566,
                         fn: '<get-symbol>'
                     }), file, {
-                        index: 523,
+                        index: 566,
                         fn: 'delete'
                     })], [await builtins.funcall(['connection'], [scope], builtins.get_symbol, file, {
-                        index: 542,
+                        index: 585,
                         fn: '<get-symbol>'
                     })], await builtins.funcall(['run'], [scope], builtins.get_symbol, file, {
-                        index: 538,
+                        index: 581,
                         fn: '<get-symbol>'
                     }), file, {
-                        index: 538,
+                        index: 581,
                         fn: 'run'
                     })
                 }
@@ -222,7 +269,7 @@ module.exports = async function(scope, builtins, file) {
                     return await fn(__data)
                 }
             })([await builtins.funcall(['todos'], [scope], builtins.get_symbol, file, {
-                index: 494,
+                index: 537,
                 fn: '<get-symbol>'
             })])
         }, true);
@@ -232,64 +279,16 @@ module.exports = async function(scope, builtins, file) {
         return func;
     })(scope), 'remove_todo', scope);
     builtins.decorate_function(await builtins.funcall(['eager'], [scope], builtins.get_symbol, file, {
-        index: 467,
+        index: 510,
         fn: '<get-symbol>'
     }), [], 'remove_todo', 'default', scope);
-    builtins.define_function((function(scope) {
-        var func = builtins.lazy(async function(timestamp) {
-            var scope = Object.assign({}, func.frozenscope);
-            var args_obj = {};
-            var _arguments = arguments;
-            ['timestamp'].forEach(function(arg, index) {
-                scope[arg] = _arguments[index]
-            });
-            return await (async function(__data) {
-                var fn = async function(__data) {
-                    return await builtins.funcall([await builtins.funcall([...__data], [await builtins.funcall(['connection'], [scope], builtins.get_symbol, file, {
-                        index: 605,
-                        fn: '<get-symbol>'
-                    })], await builtins.funcall(['run'], [scope], builtins.get_symbol, file, {
-                        index: 601,
-                        fn: '<get-symbol>'
-                    }), file, {
-                        index: 601,
-                        fn: 'run'
-                    })], [], await builtins.funcall(['toArray'], [scope], builtins.get_symbol, file, {
-                        index: 624,
-                        fn: '<get-symbol>'
-                    }), file, {
-                        index: 624,
-                        fn: 'toArray'
-                    })
-                }
-                if (__data[0].is_reactive) {
-                    return __data[0].set_listener(function(n) {
-                        return fn([n, ...__data.slice(1)])
-                    })
-                } else {
-                    return await fn(__data)
-                }
-            })([await builtins.funcall(['todos'], [scope], builtins.get_symbol, file, {
-                index: 587,
-                fn: '<get-symbol>'
-            })])
-        }, true);
-        func.frozenscope = Object.assign({}, scope);
-        func.frozenscope['get_todos'] = func;
-        func.frozenscope['recall'] = func;
-        return func;
-    })(scope), 'get_todos', scope);
-    builtins.decorate_function(await builtins.funcall(['eager'], [scope], builtins.get_symbol, file, {
-        index: 555,
-        fn: '<get-symbol>'
-    }), [], 'get_todos', 'default', scope);
     await (async function(__data) {
         var fn = async function(__data) {
             return (await builtins.update_vars(scope, ['todo_emitter'], await builtins.funcall([...__data], [], await builtins.funcall(['emitter'], [scope], builtins.get_symbol, file, {
-                index: 643,
+                index: 607,
                 fn: '<get-symbol>'
             }), file, {
-                index: 643,
+                index: 607,
                 fn: 'emitter'
             })))
         }
@@ -312,13 +311,13 @@ module.exports = async function(scope, builtins, file) {
             return await (async function(__data) {
                 var fn = async function(__data) {
                     return await builtins.funcall([...__data], ['change', await builtins.funcall(['data'], [scope], builtins.get_symbol, file, {
-                        index: 725,
+                        index: 689,
                         fn: '<get-symbol>'
                     })], await builtins.funcall(['emit'], [scope], builtins.get_symbol, file, {
-                        index: 712,
+                        index: 676,
                         fn: '<get-symbol>'
                     }), file, {
-                        index: 712,
+                        index: 676,
                         fn: 'emit'
                     })
                 }
@@ -330,7 +329,7 @@ module.exports = async function(scope, builtins, file) {
                     return await fn(__data)
                 }
             })([await builtins.funcall(['todo_emitter'], [scope], builtins.get_symbol, file, {
-                index: 696,
+                index: 660,
                 fn: '<get-symbol>'
             })])
         }, true);
@@ -340,34 +339,34 @@ module.exports = async function(scope, builtins, file) {
         return func;
     })(scope), 'emit_data', scope);
     builtins.decorate_function(await builtins.funcall(['eager'], [scope], builtins.get_symbol, file, {
-        index: 669,
+        index: 633,
         fn: '<get-symbol>'
     }), [], 'emit_data', 'default', scope);
     await (async function(__data) {
         var fn = async function(__data) {
             return await builtins.funcall([await builtins.funcall([await builtins.funcall([...__data], [], await builtins.funcall(['changes'], [scope], builtins.get_symbol, file, {
-                index: 743,
+                index: 707,
                 fn: '<get-symbol>'
             }), file, {
-                index: 743,
+                index: 707,
                 fn: 'changes'
             })], [await builtins.funcall(['connection'], [scope], builtins.get_symbol, file, {
-                index: 761,
+                index: 725,
                 fn: '<get-symbol>'
             })], await builtins.funcall(['run'], [scope], builtins.get_symbol, file, {
-                index: 757,
+                index: 721,
                 fn: '<get-symbol>'
             }), file, {
-                index: 757,
+                index: 721,
                 fn: 'run'
             })], [`data`, await builtins.funcall(['emit_data'], [scope], builtins.get_symbol, file, {
-                index: 788,
+                index: 752,
                 fn: '<get-symbol>'
             })], await builtins.funcall(['on'], [scope], builtins.get_symbol, file, {
-                index: 778,
+                index: 742,
                 fn: '<get-symbol>'
             }), file, {
-                index: 778,
+                index: 742,
                 fn: 'on'
             })
         }
@@ -379,7 +378,7 @@ module.exports = async function(scope, builtins, file) {
             return await fn(__data)
         }
     })([await builtins.funcall(['todos'], [scope], builtins.get_symbol, file, {
-        index: 731,
+        index: 695,
         fn: '<get-symbol>'
     })]);
     await (async function(__data) {

@@ -20,6 +20,15 @@
     </script>
     <script src="clio.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+    <script id="todo-template" type="text/x-handlebars-template">
+      <div class="todo" data-todo-id="{{id}}">
+        <input type="checkbox" class="status" {{#if checked}}checked{{/if}}>
+        <h2 class="title" contenteditable="true">{{title}}</h2>
+        <div class="body" contenteditable="true">{{{body}}}</div>
+        <a href="#" class="remove">x</a>
+      </div>
+    </script>
     <script>
       // fix conflicts
       jQuery.fn.extend({

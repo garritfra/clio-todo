@@ -4,6 +4,12 @@ rethinkdb -> connect #localhost 28015 => connection
 rethinkdb -> db #clio => database -> table #todos => todos
 
 @eager
+fn get_todos timestamp:
+  todos
+     -> run connection
+     -> toArray
+
+@eager
 fn update_todo id title body checked:
   todos
      -> get id
@@ -22,12 +28,6 @@ fn remove_todo id:
      -> get id
      -> delete
      -> run connection
-
-@eager
-fn get_todos timestamp:
-  todos
-     -> run connection
-     -> toArray
 
 #todos -> emitter => todo_emitter
 
