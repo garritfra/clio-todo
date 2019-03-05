@@ -24,22 +24,20 @@ fn do_remove_todo event:
 
 @eager
 fn remove_editing_class event:
-  event.target -> $ -> removeClass 'editing'
+  '.editing' -> $ -> removeClass 'editing'
 
-'body' -> $ -> (@eager) fn $body:
-  $body -> on 'click' '.remove' do_remove_todo
-  $body -> on 'input' '.body' do_update_todo
-  $body -> on 'input' '.title' do_update_todo
-  $body -> on 'change' '.status' do_update_todo
-  $body -> on 'focusout' '.todo' remove_editing_class
+'body' -> $
+       -> on 'click' '.remove' do_remove_todo
+       -> on 'input' '.todo' do_update_todo
+       -> on 'focusout' '.todo' remove_editing_class
 
 @eager
 fn update_page todo:
-  if not todo.old_val:
+  if not todo.old_val: -- it's a new to-do item
     todo.new_val -> template -> $ -> appendTo '#todos'
-  elif not todo.new_val:
+  elif not todo.new_val: -- the to-do item was removed
     '[data-todo-id=' todo.old_val.id ']' -> cat -> $ -> remove
-  else:
+  else: -- it was updated
     '[data-todo-id=' todo.new_val.id ']'
       -> cat -> $
       => $container
