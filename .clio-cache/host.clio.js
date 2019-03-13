@@ -3,7 +3,7 @@ module.exports = async function(scope, builtins, file) {
     await builtins.clio_require('rethinkdb-2.3.3/rethinkdb', ['rethinkdb'], __dirname, scope);
     await (async function(__data) {
         var fn = async function(__data) {
-            return (await builtins.update_vars(scope, ['connection'], await builtins.funcall([...__data], ['localhost', builtins.Decimal('28015')], await builtins.funcall(['connect'], [scope], builtins.get_symbol, file, {
+            return (await builtins.update_vars(scope, ['connection'], await builtins.funcall([...__data], ['localhost', new builtins.Decimal('28015')], await builtins.funcall(['connect'], [scope], builtins.get_symbol, file, {
                 index: 62,
                 fn: '<get-symbol>'
             }), file, {
@@ -393,7 +393,7 @@ module.exports = async function(scope, builtins, file) {
             return await fn(__data)
         }
     })([{
-        'port': builtins.Decimal('3000'),
+        'port': new builtins.Decimal('3000'),
         'exports': new builtins.Generator(
             (i, self) => self.data[i],
             ['get_todos', 'update_todo', 'add_todo', 'todo_emitter', 'remove_todo'],
